@@ -13,7 +13,7 @@ const contactFile = 'ContactsPerCountry.json'
 const contacts = fs.readJSONSync(contactFile)
 
 const message = (name) => {
-    return "Cher " + name.trim() + ",\n\n" +
+    return "Cher *" + name.trim() + "*,\n\n" +
         "Ici le service client de *Shaku Mining LTD*\n" +
         "*CR-75ADE664 – Registrar of Companies (Companies and Other Business Entities Act [Chapter 24:31])*\n\n" +
         "J'ai Le plaisir de vous annoncer la création de notre plate-forme en ligne d'investissement minier en Afrique.\n\n" +
