@@ -71,7 +71,7 @@ async function startBot() {
 
     const sock = makeWASocket({
         auth: state,
-        markOnlineOnConnect: false,
+        markOnlineOnConnect: true,
         getMessage: handler.getHandler,
         cachedGroupMetadata: async (jid) => groupCache.get(jid)
     })
