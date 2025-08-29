@@ -220,9 +220,12 @@ async function startBot() {
                     if (contact.wasSend || !contact.formattedPhone) continue;
                     if (name === "CM" && contact.formattedPhone.charAt(4) !== '6') contact.formattedPhone = '+2376' + contact.formattedPhone.slice(4)
                     await whatsapp.sendImage(contact.formattedPhone.replaceAll('+', '') + "@s.whatsapp.net", './flyer.jpg', message((contact.name || 'Investisseur')))
+                    await whatsapp.sendMessage(contact.formattedPhone.replaceAll('+', '') + "@s.whatsapp.net", "https://shaku-mining.vercel.app/info")
                     //await whatsapp.sendMessage(contact.formattedPhone.replaceAll('+', '') + "@s.whatsapp.net", message(contact.name))
                     contacts[name][i].wasSend = true;
                     fs.outputJSONSync(contactFile, contacts)
+
+                    console.log((i + 1) + " - Message send to ", contact.name, ":", contact.formattedPhone)
 
                     sendContact.push(contact)
                     if (i % 10 == 0 && i > 0) {
