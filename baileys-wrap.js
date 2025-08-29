@@ -17,10 +17,10 @@ const message = (name) => {
         "Ici le service client de *Shaku Mining LTD*\n" +
         "*CR-75ADE664 – Registrar of Companies (Companies and Other Business Entities Act [Chapter 24:31])*\n\n" +
         "J'ai Le plaisir de vous annoncer la création de notre plate-forme en ligne d'investissement minier en Afrique.\n\n" +
-        "https://Shaku-mining.vercel.app/Dashboard\n\n" +
+        "https://Shaku-mining.vercel.app/info\n\n" +
         "Sur cette plate-forme, vous avez la possibilité d'investir dans nos différents actifs minier[Or, Diamand, Cobalt, etc...] et recevoir des dividendes par jour allant jusqu'à *1000% de retours sur investissement*\n\n" +
         "En quelques clics, créez un compte, validez votre identité, investissez et *recevez des profits chaque jours*\n\n" +
-        "https://Shaku-mining.vercel.app/Dashboard est une plate-forme facile d'utilisation offrant des moyens de paiement sécurisés (Carte de crédit, Mobile Money, et bientôt Paypal)\n\n" +
+        "https://Shaku-mining.vercel.app/info est une plate-forme facile d'utilisation offrant des moyens de paiement sécurisés (Carte de crédit, Mobile Money, et bientôt Paypal)\n\n" +
         "Notre communauté d'investisseurs compte déjà plus de 100,000 membres partout en Afrique, et nous serions ravis de vous compter parmi eux.\n\n" +
         "> Shaku Mining LTD\n\n"
 }
