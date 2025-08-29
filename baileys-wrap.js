@@ -85,7 +85,7 @@ async function startBot() {
 
             console.log("connection closed due to ", lastDisconnect?.error, ", reconnecting ", shouldReconnect)
 
-            if (shouldReconnect) startBot()
+            startBot()
         } else if (connection === "open") {
             console.log("✅ Bot is online!")
         }
