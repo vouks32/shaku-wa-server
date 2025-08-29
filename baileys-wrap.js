@@ -233,7 +233,7 @@ async function startBot() {
                         sendContact = []
                     }
 
-                    await delay(4 * 60 * 1000)
+                    await delay(2 * 60 * 1000)
                 }
 
             } else {
