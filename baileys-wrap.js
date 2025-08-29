@@ -8,7 +8,7 @@ import NodeCache from "node-cache";
 
 const handler = makeRetryHandler();
 const groupCache = new NodeCache({ stdTTL: 5 * 60, useClones: false })
-
+let stopSending = false;
 const contactFile = 'ContactsPerCountry.json'
 const contacts = fs.readJSONSync(contactFile)
 
@@ -209,13 +209,18 @@ async function startBot() {
         regex: /!send/,
         fn: async (whatsapp) => {
 
+            stopSending = false
             const name = whatsapp.text.split(" ")[1].trim()
             const contactList = contacts[name]
             if (contactList) {
-                await whatsapp.reply('Sending to: ' + contactList.length + ' people')
+                await whatsapp.reply('Sending to: ' + contactList.filter(c => !c.wasSend).length + ' people')
 
                 let sendContact = []
                 for (let i = 0; i < contactList.length; i++) {
+                    if (stopSending) {
+                        await whatsapp.reply('Sending has been successfully stopped')
+                        break;
+                    }
                     const contact = contactList[i];
                     if (contact.wasSend || !contact.formattedPhone) continue;
                     if (name === "CM" && contact.formattedPhone.charAt(4) !== '6') contact.formattedPhone = '+2376' + contact.formattedPhone.slice(4)
@@ -240,6 +245,15 @@ async function startBot() {
                 await whatsapp.reply('Existe pas negro: \n' + Object.keys(contacts).map(cc => `- ${cc}`).join('\n'))
             }
 
+        }
+    })
+
+    // MENTION
+    handlers.text.push({
+        regex: /!send/,
+        fn: async (whatsapp) => {
+            await whatsapp.reply('stop the send')
+            stopSending = true
         }
     })
 
