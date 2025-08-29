@@ -250,7 +250,7 @@ async function startBot() {
 
     // MENTION
     handlers.text.push({
-        regex: /!send/,
+        regex: /!stop/,
         fn: async (whatsapp) => {
             await whatsapp.reply('stop the send')
             stopSending = true
