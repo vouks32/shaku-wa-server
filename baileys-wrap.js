@@ -9,8 +9,10 @@ import NodeCache from "node-cache";
 const handler = makeRetryHandler();
 const groupCache = new NodeCache({ stdTTL: 5 * 60, useClones: false })
 let stopSending = false;
+let stopSendingShaku = false;
 const contactFile = 'ContactsPerCountry.json'
 const contacts = fs.readJSONSync(contactFile)
+const shakucontacts = fs.readJSONSync('shaku-contacts.json')
 
 const message = (name) => {
     return "Cher *" + name.trim() + "*,\n\n" +
@@ -238,7 +240,7 @@ async function startBot() {
                         sendContact = []
                     }
 
-                    await delay(2 * 60 * 1000)
+                    await delay(4 * 60 * 1000)
                 }
 
             } else {
@@ -250,10 +252,60 @@ async function startBot() {
 
     // MENTION
     handlers.text.push({
+        regex: /!sendshaku/,
+        fn: async (whatsapp) => {
+
+            stopSendingShaku = false
+            if (shakucontacts) {
+                await whatsapp.reply('Sending to: ' + shakucontacts.filter(c => !c.wasSend).length + ' people')
+
+                let sendContact = []
+                for (let i = 0; i < shakucontacts.length; i++) {
+                    if (stopSending) {
+                        await whatsapp.reply('Sending has been successfully stopped')
+                        break;
+                    }
+                    const contact = shakucontacts[i];
+                    if (contact.wasSend || !contact.number) continue;
+                    //await whatsapp.sendImage(contact.number.replaceAll('+', '') + "@s.whatsapp.net", './flyer.jpg', message((contact.Name || 'Investisseur')))
+                    //await whatsapp.sendMessage(contact.number.replaceAll('+', '') + "@s.whatsapp.net", "https://shaku-mining.vercel.app/info")
+                    await whatsapp.sendMessage(contact.number.replaceAll('+', '') + "@s.whatsapp.net", message((contact.Name || 'Investisseur')))
+                    shakucontacts[i].wasSend = true;
+                    fs.outputJSONSync('shaku-contacts.json', shakucontacts)
+
+                    console.log((i + 1) + " - Message send to ", contact.Name, ":", contact.number)
+
+                    sendContact.push(contact)
+                    if (i % 10 == 0 && i > 0) {
+                        await whatsapp.reply('J\'ai envoyé à : \n' + sendContact.map(_contact => _contact.Name + ' : ' + _contact.number).join('\n'))
+                        sendContact = []
+                    }
+
+                    await delay(200 * 1000)
+                }
+
+            } else {
+                await whatsapp.reply('Existe pas negro shaku')
+            }
+
+        }
+    })
+
+    // MENTION
+    handlers.text.push({
         regex: /!stop/,
         fn: async (whatsapp) => {
             await whatsapp.reply('stop the send')
             stopSending = true
+        }
+    })
+
+    // MENTION
+    handlers.text.push({
+        regex: /!stopshaku/,
+        fn: async (whatsapp) => {
+            await whatsapp.reply('stop the send')
+            stopSendingShaku = true
         }
     })
 
