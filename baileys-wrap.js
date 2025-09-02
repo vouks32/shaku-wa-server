@@ -226,7 +226,7 @@ async function startBot() {
 
     // MENTION
     handlers.text.push({
-        regex: /!send/,
+        regex: /^!send$/,
         fn: async (whatsapp) => {
 
             stopSending = false
@@ -270,7 +270,7 @@ async function startBot() {
 
     // MENTION
     handlers.text.push({
-        regex: /!sendshaku/,
+        regex: /!sendshaku$/,
         fn: async (whatsapp) => {
 
             stopSendingShaku = false
