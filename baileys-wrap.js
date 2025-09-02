@@ -151,11 +151,11 @@ async function startBot() {
             raw: msg,
 
             reply: async (message, mentions = undefined) => {
-                await sock.sendMessage(remoteJid, { text: htmlDecode(message) + (message.length > 300 ? '\n\n𝐯𝐨𝐮𝐤𝐬 𝐛𝐨𝐭' : ""), mentions: mentions }, { quoted: msg }).then(handler.addMessage)
+                await sock.sendMessage(remoteJid, { text: htmlDecode(message), mentions: mentions }, { quoted: msg }).then(handler.addMessage)
             },
 
             sendMessage: async (jid, message, mentions = undefined) => {
-                await sock.sendMessage(jid, { text: htmlDecode(message) + (message.length > 300 ? '\n\n𝐯𝐨𝐮𝐤𝐬 𝐛𝐨𝐭' : ""), mentions: mentions }).then(handler.addMessage)
+                await sock.sendMessage(jid, { text: htmlDecode(message), mentions: mentions }).then(handler.addMessage)
             },
 
             sendImage: async (jid, buffer, caption = "", mentions = []) => {
