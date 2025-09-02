@@ -27,6 +27,24 @@ const message = (name) => {
         "> Shaku Mining LTD\n\n"
 }
 
+
+const message2 = (name) => {
+    return "Cher M./Mme. *" + name.trim() + "*,\n\n" +
+    
+        "Ici le service client de *Shaku Mining LTD*\n" +
+        "*CR-75ADE664 – Registrar of Companies (Companies and Other Business Entities Act [Chapter 24:31])*\n\n" +
+
+        "Suite à votre récente inscription sur notre siteweb, je vous contacte pour vous informer de l'existance de ce service client.\n" +
+        "Je suis disponible pour répondre à chacune de vos question et vous guider dans cette avanture.\n\n" +
+
+        "N'hésitez pas à consulter cette page pour avoir plus d'informations.\n" +
+        "https://Shaku-mining.vercel.app/info\n\n" +
+
+        "N'hésitez pas à Me contacter en cas de questions.\n\n" +
+
+        "> Shaku Mining LTD"
+}
+
 function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -269,7 +287,7 @@ async function startBot() {
                     if (contact.wasSend || !contact.number) continue;
                     //await whatsapp.sendImage(contact.number.replaceAll('+', '') + "@s.whatsapp.net", './flyer.jpg', message((contact.Name || 'Investisseur')))
                     //await whatsapp.sendMessage(contact.number.replaceAll('+', '') + "@s.whatsapp.net", "https://shaku-mining.vercel.app/info")
-                    await whatsapp.sendMessage(contact.number.replaceAll('+', '') + "@s.whatsapp.net", message((contact.Name || 'Investisseur')))
+                    await whatsapp.sendMessage(contact.number.replaceAll('+', '') + "@s.whatsapp.net", message2((contact.Name || 'Investisseur')))
                     shakucontacts[i].wasSend = true;
                     fs.outputJSONSync('shaku-contacts.json', shakucontacts)
 
